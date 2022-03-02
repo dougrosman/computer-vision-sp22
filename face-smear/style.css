@@ -1,0 +1,67 @@
+/* 
+  The style.css file is where you change the style of your web page.
+  The things you change here will not affect your p5.js sketch
+*/
+
+/* Change your menu parameters here */
+
+canvas {
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+:root {
+  --menu-display: flex; /* change this to 'none' to hide the top bar */
+  --font-clr: rgb(0, 0, 0);
+  --font-hover: rgb(80, 80, 80);
+  --font-size: 1rem;
+  --menu-background: none; /* none, or choose a color */
+}
+
+
+/*------------------------------------------------------*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+  background: var(--menu-background);
+  padding: .5em;
+  display: var(--menu-display); /* change this to 'none' to hide the top bar */
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+h1 {
+  font-size: var(--font-size);
+  color: var(--font-clr);
+}
+
+a {
+  color: var(--font-clr);
+  text-decoration: none;
+  font-size: var(--font-size);
+  font-weight: bold;
+}
+
+a:hover {
+  color: var(--clr-hover);
+}
+
+
