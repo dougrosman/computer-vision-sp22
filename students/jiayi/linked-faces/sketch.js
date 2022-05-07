@@ -4,8 +4,8 @@ let model;
 let faces;
 
 const w = 640; // the width of the camera feed
-const h = 360; // the height of the camera feed
-const DISTANCE_THRESHOLD = 350; // lower threshold = closer distance to trigger linking
+const h = 480; // the height of the camera feed
+const DISTANCE_THRESHOLD = 200; // lower threshold = closer distance to trigger linking
 const LINE_SPARSNESS = 4; // higher sparsness = fewer lines. fewer lines = faster sketch
 let linkedFaces = []; // stores the index of any face that is linked
 let linkedPairs = []; // stores the index pairs of linked faces (e.g. [0, 1], [2, 3])
@@ -14,30 +14,22 @@ let unlinkedFaces = []; // stores index any face that is not linked
 let windowScaleRatio;
 
 function setup() {
-  createCanvas(innerWidth, innerHeight);
+  createCanvas(w, h);
   windowScaleRatio = innerWidth / w;
+  canvas.style.transform = `translate(-50%, -100%) scale(${windowScaleRatio})`;
   capture = createCapture(VIDEO);
-  capture.size(w, h);
-  capture.hide();
   colorMode(HSB, 255);
+  // pixelDensity(1); // uncomment this if sketch is slow
 
   loadFaceModel();
 }
 
 function draw() {
-  background(0);
+  clear(); // clears the canvas each loop
 
   if (capture.loadedmetadata && model !== undefined) {
     getFaces();
   }
-
-  // draw the camera feed
-  push();
-  scale(windowScaleRatio, windowScaleRatio);
-  translate(w, 0);
-  scale(-1, 1);
-  image(capture, 0, 0);
-  pop();
 
   if (faces !== undefined) {
     if(faces.length > 0) calculateLinks();
@@ -45,8 +37,19 @@ function draw() {
 }
 
 function windowResized() {
-  resizeCanvas(innerWidth, innerHeight);
   windowScaleRatio = innerWidth / w;
+  canvas.style.transform = `translate(-50%, -100%) scale(${windowScaleRatio})`;
+}
+
+function mousePressed() {
+  let fs = fullscreen();
+  console.log(fs);
+  if(fs == undefined) {
+    canvas.style.top = `44%`;
+  } else {
+    canvas.style.top = `50%`;
+  }
+  fullscreen(!fs);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -68,7 +71,7 @@ function scrambleFace(face) {
     stroke(0, 0, 0);
     strokeWeight(1);
     push();
-    scale(windowScaleRatio, windowScaleRatio);
+    //scale(windowScaleRatio, windowScaleRatio);
     beginShape(LINES);
     vertex(rlm1.x, rlm1.y);
     vertex(rlm2.x, rlm2.y);
@@ -93,7 +96,7 @@ function linkFaces(face1, face2) {
     stroke(h, 255, 255);
     strokeWeight(1);
     push();
-    scale(windowScaleRatio, windowScaleRatio);
+    //scale(windowScaleRatio, windowScaleRatio);
     beginShape(LINES);
     vertex(rlm1.x, rlm1.y);
     vertex(rlm2.x, rlm2.y);
@@ -222,3 +225,6 @@ async function getFaces() {
     faces = predictions;
   }
 }
+
+
+
