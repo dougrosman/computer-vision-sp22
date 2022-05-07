@@ -5,7 +5,7 @@ let faces;
 
 const w = 640; // the width of the camera feed
 const h = 480; // the height of the camera feed
-const DISTANCE_THRESHOLD = 200; // lower threshold = closer distance to trigger linking
+const DISTANCE_THRESHOLD = 300; // lower threshold = closer distance to trigger linking
 const LINE_SPARSNESS = 4; // higher sparsness = fewer lines. fewer lines = faster sketch
 let linkedFaces = []; // stores the index of any face that is linked
 let linkedPairs = []; // stores the index pairs of linked faces (e.g. [0, 1], [2, 3])
@@ -19,7 +19,7 @@ function setup() {
   canvas.style.transform = `translate(-50%, -100%) scale(${windowScaleRatio})`;
   capture = createCapture(VIDEO);
   colorMode(HSB, 255);
-  // pixelDensity(1); // uncomment this if sketch is slow
+  // pixelDensity(1); // uncomment this if sketch is slow on retina display
 
   loadFaceModel();
 }
@@ -68,15 +68,15 @@ function scrambleFace(face) {
 
     // add any changes here
 
-    stroke(0, 0, 0);
+    stroke(Math.random() * 255, Math.random() * 255, Math.random() * 255);
     strokeWeight(1);
-    push();
-    //scale(windowScaleRatio, windowScaleRatio);
+    
+    
     beginShape(LINES);
     vertex(rlm1.x, rlm1.y);
     vertex(rlm2.x, rlm2.y);
     endShape();
-    pop();
+    
   }
 }
 
@@ -92,16 +92,13 @@ function linkFaces(face1, face2) {
 
     // add any changes here
 
-    let h = map(faces.length, 2, 6, 0, 255);
+    let h = map(faces.length, 2, 6, 0, 255); // color changes with different # of faces
     stroke(h, 255, 255);
     strokeWeight(1);
-    push();
-    //scale(windowScaleRatio, windowScaleRatio);
     beginShape(LINES);
     vertex(rlm1.x, rlm1.y);
     vertex(rlm2.x, rlm2.y);
     endShape();
-    pop();
   }
 }
 
