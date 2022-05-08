@@ -221,6 +221,3 @@ async function getFaces() {
     faces = predictions;
   }
 }
-
-
-
