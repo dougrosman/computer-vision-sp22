@@ -16,8 +16,11 @@ let windowScaleRatio;
 function setup() {
   createCanvas(w, h);
   windowScaleRatio = innerWidth / w;
-  canvas.style.transform = `translate(-50%, -100%) scale(${windowScaleRatio})`;
+  canvas.style.transform = `scale(${windowScaleRatio})`;
+  
   capture = createCapture(VIDEO);
+  let v = document.querySelector('video')
+  v.style.transform = `scale(${windowScaleRatio}, ${windowScaleRatio}) translate(100%, 0) scaleX(-1)`;
   colorMode(HSB, 255);
   // pixelDensity(1); // uncomment this if sketch is slow on retina display
 
@@ -38,17 +41,13 @@ function draw() {
 
 function windowResized() {
   windowScaleRatio = innerWidth / w;
-  canvas.style.transform = `translate(-50%, -100%) scale(${windowScaleRatio})`;
+  canvas.style.transform = `scale(${windowScaleRatio})`;
+  let v = document.querySelector('video')
+  v.style.transform = `scale(${windowScaleRatio}, ${windowScaleRatio}) translate(100%, 0) scaleX(-1)`;
 }
 
 function mousePressed() {
   let fs = fullscreen();
-  console.log(fs);
-  if(fs == undefined) {
-    canvas.style.top = `44%`;
-  } else {
-    canvas.style.top = `50%`;
-  }
   fullscreen(!fs);
 }
 
