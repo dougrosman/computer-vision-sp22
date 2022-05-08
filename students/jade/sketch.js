@@ -27,9 +27,9 @@ let shuffledObj = [];
 
 let windowScaleRatio;
 
-// if sketch is slow, try 640x360
-const w = 640;
-const h = 480;
+// if sketch is slow, try 640x480
+const w = 1280;
+const h = 960;
 
 function preload(){
   specialElite = loadFont("SpecialElite-Regular.ttf");
@@ -51,7 +51,7 @@ function setup() {
 
   v.style.transform = `scale(${windowScaleRatio}, ${windowScaleRatio}) translate(100%, 0) scaleX(-1)`;
 
-  centerVertical();
+  // centerVertical();
 
   const options = {
     flipHorizontal: true, // boolean value for if the video
@@ -102,7 +102,7 @@ function drawKeypoints()  {
     //console.log(pose);
     if (pose.score >0.3){
     noStroke();
-    fill(0);
+    fill(255);
     textFont(specialElite);
     textSize(30);
     textAlign(CENTER);
@@ -180,7 +180,7 @@ function windowResized() {
   let v = document.querySelector('video')
   v.style.transform = `scale(${windowScaleRatio}, ${windowScaleRatio}) translate(100%, 0) scaleX(-1)`;
 
-  centerVertical();
+  // centerVertical();
 }
 
 function mousePressed() {
