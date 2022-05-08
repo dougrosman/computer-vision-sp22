@@ -29,7 +29,7 @@ let windowScaleRatio;
 
 // if sketch is slow, try 640x480
 const w = 1280;
-const h = 960;
+const h = 720;
 
 function preload(){
   specialElite = loadFont("SpecialElite-Regular.ttf");
@@ -37,7 +37,15 @@ function preload(){
 
 function setup() {
   createCanvas(w, h);
-  capture = createCapture(VIDEO);
+  let constraints = {
+    audio:false,
+    video:{
+      width:{min:320,ideal:w,max:1920},
+      height:{min:240,ideal:h,max:1080},
+      frameRate: {min: 1.0, max: 60.0}
+    }
+  };
+  capture = createCapture(constraints);
   const v = document.querySelector('video')
   const c = document.querySelector('canvas')
 
@@ -51,7 +59,7 @@ function setup() {
 
   v.style.transform = `scale(${windowScaleRatio}, ${windowScaleRatio}) translate(100%, 0) scaleX(-1)`;
 
-  // centerVertical();
+  centerVertical();
 
   const options = {
     flipHorizontal: true, // boolean value for if the video
@@ -180,7 +188,7 @@ function windowResized() {
   let v = document.querySelector('video')
   v.style.transform = `scale(${windowScaleRatio}, ${windowScaleRatio}) translate(100%, 0) scaleX(-1)`;
 
-  // centerVertical();
+  centerVertical();
 }
 
 function mousePressed() {
@@ -190,6 +198,12 @@ function mousePressed() {
 
 function centerVertical() {
   const sketchHeight = (windowScaleRatio * height);
-  const heightDifference = floor((sketchHeight - innerHeight)/2);
+
+  if(sketchHeight >= innerHeight) {
+    const heightDifference = floor((sketchHeight - innerHeight)/2);
   $('.container').css('transform', `translateY(-${heightDifference}px)`);
+  } else {
+    const heightDifference = floor((innerHeight - sketchHeight)/2);
+  $('.container').css('transform', `translateY(${heightDifference}px)`);
+  }
 }

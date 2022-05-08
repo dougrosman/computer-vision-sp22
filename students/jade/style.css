@@ -22,5 +22,6 @@ video {
   top: 0;
   left: 0;
   transform-origin: top left;
+  object-fit: cover;
   z-index: -1;
 }
