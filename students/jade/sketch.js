@@ -102,9 +102,9 @@ function drawKeypoints()  {
     //console.log(pose);
     if (pose.score >0.3){
     noStroke();
-    fill(255, 0, 0);
+    fill(0);
     textFont(specialElite);
-    textSize(40);
+    textSize(30);
     textAlign(CENTER);
       
     let leftWrist = pose.keypoints[9];
