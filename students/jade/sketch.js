@@ -82,7 +82,7 @@ function setup() {
 }
 
 function modelReady() {
-  select('#status').html('Model Loaded');
+  console.log('model ready');
 }
 
 function draw() {
