@@ -36,6 +36,7 @@ function setup() {
 
   centerVertical();
   colorMode(HSB, 255);
+  
   // pixelDensity(1); // uncomment this if sketch is slow on retina display
 
   loadFaceModel();
