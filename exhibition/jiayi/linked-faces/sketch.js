@@ -241,7 +241,7 @@ async function getFaces() {
   }
 }
 
-// auto refresh page every 15 minutes
+// auto refresh page every 10 minutes
 setTimeout(function() {
 
   const URL = window.location.href;
