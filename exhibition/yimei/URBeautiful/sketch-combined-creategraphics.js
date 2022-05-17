@@ -551,7 +551,7 @@ setTimeout(function(){
 
   window.location.href = window.location.href;
 
-}, 10000)
+}, 300000)
 
 //function mousePressed() {
   //save("myimage.jpg")
