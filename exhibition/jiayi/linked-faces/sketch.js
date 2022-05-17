@@ -3,8 +3,8 @@
 let model;
 let faces;
 
-const w = 640; // the width of the camera feed
-const h = 480; // the height of the camera feed
+const w = 1920; // the width of the camera feed
+const h = 1080; // the height of the camera feed
 const DISTANCE_THRESHOLD = 350; // lower threshold = closer distance to trigger linking
 const LINE_SPARSNESS = 3; // higher sparsness = fewer lines. fewer lines = faster sketch
 
@@ -12,12 +12,29 @@ let windowScaleRatio;
 
 function setup() {
   createCanvas(w, h);
-  windowScaleRatio = innerWidth / w;
-  canvas.style.transform = `scale(${windowScaleRatio})`;
+  let constraints = {
+    audio:false,
+    video:{
+      width:{min:320,ideal:w,max:1920},
+      height:{min:240,ideal:h,max:1080},
+      frameRate: {min: 1.0, max: 60.0}
+    }
+  };
+  capture = createCapture(constraints);
+  const v = document.querySelector('video')
+  const c = document.querySelector('canvas')
+
+  $('.container').append(v);
+  $('.container').append(c);
   
-  capture = createCapture(VIDEO);
-  let v = document.querySelector('video')
+  // capture.size(w, h);
+
+  windowScaleRatio = innerWidth / w;
+  c.style.transform = `scale(${windowScaleRatio})`;
+
   v.style.transform = `scale(${windowScaleRatio}, ${windowScaleRatio}) translate(100%, 0) scaleX(-1)`;
+
+  centerVertical();
   colorMode(HSB, 255);
   // pixelDensity(1); // uncomment this if sketch is slow on retina display
 
@@ -42,6 +59,8 @@ function windowResized() {
   canvas.style.transform = `scale(${windowScaleRatio})`;
   let v = document.querySelector('video')
   v.style.transform = `scale(${windowScaleRatio}, ${windowScaleRatio}) translate(100%, 0) scaleX(-1)`;
+
+  centerVertical();
 }
 
 function mousePressed() {
@@ -228,3 +247,16 @@ setTimeout(function() {
   window.location.href = URL;
 
 }, 600000)
+
+
+function centerVertical() {
+  const sketchHeight = (windowScaleRatio * height);
+
+  if(sketchHeight >= innerHeight) {
+    const heightDifference = floor((sketchHeight - innerHeight)/2);
+  $('.container').css('transform', `translateY(-${heightDifference}px)`);
+  } else {
+    const heightDifference = floor((innerHeight - sketchHeight)/2);
+  $('.container').css('transform', `translateY(${heightDifference}px)`);
+  }
+}
