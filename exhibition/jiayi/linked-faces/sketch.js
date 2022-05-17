@@ -121,7 +121,7 @@ function linkFaces(face1, face2) {
 
 function calculateLinks() {
   // if only one face detected, scramble the single face and don't do any distance calculations
-  if (faces.length == 1 && faces[0].faceInViewConfidence > 0.98) {
+  if (faces.length == 1 && faces[0].faceInViewConfidence > 0.95) {
     scrambleFace(faces[0]);
   } else {
 
