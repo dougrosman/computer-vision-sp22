@@ -5,7 +5,7 @@ let faces;
 
 const w = 1280; // the width of the camera feed
 const h = 720; // the height of the camera feed
-const DISTANCE_THRESHOLD = 350; // lower threshold = closer distance to trigger linking
+const DISTANCE_THRESHOLD = 700; // lower threshold = closer distance to trigger linking
 const LINE_SPARSNESS = 3; // higher sparsness = fewer lines. fewer lines = faster sketch
 
 let windowScaleRatio;
