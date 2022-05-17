@@ -5,11 +5,8 @@ let faces;
 
 const w = 640; // the width of the camera feed
 const h = 480; // the height of the camera feed
-const DISTANCE_THRESHOLD = 300; // lower threshold = closer distance to trigger linking
-const LINE_SPARSNESS = 4; // higher sparsness = fewer lines. fewer lines = faster sketch
-let linkedFaces = []; // stores the index of any face that is linked
-let linkedPairs = []; // stores the index pairs of linked faces (e.g. [0, 1], [2, 3])
-let unlinkedFaces = []; // stores index any face that is not linked
+const DISTANCE_THRESHOLD = 350; // lower threshold = closer distance to trigger linking
+const LINE_SPARSNESS = 3; // higher sparsness = fewer lines. fewer lines = faster sketch
 
 let windowScaleRatio;
 
@@ -68,7 +65,8 @@ function scrambleFace(face) {
     // add any changes here
 
     stroke(Math.random() * 255, Math.random() * 255, Math.random() * 255);
-    strokeWeight(1);
+    // stroke(0);
+    strokeWeight(1.5);
     
     
     beginShape(LINES);
@@ -108,9 +106,9 @@ function calculateLinks() {
   } else {
 
     // the following arrays are reset each frame
-    linkedFaces = []; // stores the index of any face that is linked
-    linkedPairs = []; // stores the index pairs of linked faces (e.g. [0, 1], [2, 3])
-    unlinkedFaces = []; // stores index any face that is not linked
+    let linkedFaces = []; // stores the index of any face that is linked
+    let linkedPairs = []; // stores the index pairs of linked faces (e.g. [0, 1], [2, 3])
+    let unlinkedFaces = []; // stores index any face that is not linked
 
     // if more than one face is detected, determine if the should LINK or SCRAMBLE
     // we use a nested for-loop structure in order to test the distance of each face to each other face no matter how many faces are detected.
@@ -221,3 +219,11 @@ async function getFaces() {
     faces = predictions;
   }
 }
+
+// auto refresh page every 15 minutes
+setTimeout(function() {
+
+  const URL = window.location.href;
+  window.location.href = URL;
+
+}, 600000)
