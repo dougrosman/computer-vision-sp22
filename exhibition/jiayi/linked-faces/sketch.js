@@ -5,7 +5,7 @@ let faces;
 
 const w = 1280; // the width of the camera feed
 const h = 720; // the height of the camera feed
-const DISTANCE_THRESHOLD = 700; // lower threshold = closer distance to trigger linking
+const DISTANCE_THRESHOLD = 900; // lower threshold = closer distance to trigger linking
 const LINE_SPARSNESS = 3; // higher sparsness = fewer lines. fewer lines = faster sketch
 
 let windowScaleRatio;
@@ -122,7 +122,7 @@ function linkFaces(face1, face2) {
 
 function calculateLinks() {
   // if only one face detected, scramble the single face and don't do any distance calculations
-  if (faces.length == 1 && faces[0].faceInViewConfidence > 0.95) {
+  if (faces.length == 1 && faces[0].faceInViewConfidence > 0.9) {
     scrambleFace(faces[0]);
   } else {
 
